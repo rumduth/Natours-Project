@@ -1,5 +1,3 @@
-console.log("Hello from the client side");
-
 const locations = JSON.parse(document.getElementById("map").dataset.locations);
 const token =
   "pk.eyJ1IjoiZHV0aG5nIiwiYSI6ImNtM2xhZnd0czBuaTAyanBrcXk0NmU5cTcifQ.NQkARs56vDYB0mtPQSwU1w";

@@ -2,14 +2,17 @@
   "name": "duth-nguyen-natours",
   "version": "1.0.0",
   "description": "A website to book wonderful tours",
-  "main": "index.js",
+  "main": "server.js",
+  "targets": {
+    "main": false
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js",
     "import-data": "node dev-data/data/import-dev-data.js --import",
     "delete-data": "node dev-data/data/import-dev-data.js --delete",
-    "watch:js": "parcel watch ./public/js/index.js --dist-dir bundle.js",
+    "watch:js": "parcel watch --no-hmr ./public/js/index.js --dist-dir ./public/js/bundle",
     "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
     "debug": "ndb server.js"
   },
