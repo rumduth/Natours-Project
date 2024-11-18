@@ -1,0 +1,47 @@
+extends base
+
+block content 
+    main.main 
+        .card-container
+            each tour in tours
+                - const {slug, name, duration,maxGroupSize, difficulty, ratingsAverage, ratingsQuantity, price, summary, description, imageCover, locations, startLocation, startDates } = tour
+                .card
+                    .card__header
+                        .card__picture
+                            .card__picture-overlay &nbsp;
+                            img.card__picture-img(src= `/img/tours/${imageCover}`, alt= name)
+                        h3.heading-tertirary
+                            span= name
+
+                    .card__details
+                        h4.card__sub-heading #{difficulty} #{duration}-day tour
+                        p.card__text= summary
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-map-pin')
+                            span= startLocation.description
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-calendar')
+                            span= startDates[0].toLocaleString('en-us',{month: 'long', year: 'numeric'})
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-flag')
+                            span= `${locations.length - 1} stops`
+                        .card__data
+                            svg.card__icon
+                                use(xlink:href='/img/icons.svg#icon-user')
+                            span #{maxGroupSize} people
+
+                    .card__footer
+                        p
+                            span.card__footer-value $#{price} 
+                            span.card__footer-text per person
+                        p.card__ratings
+                            span.card__footer-value #{ratingsAverage} 
+                            span.card__footer-text rating (#{ratingsQuantity})
+                        a.btn.btn--green.btn--small(href= `/tours/${slug}`) Details
+
+
+
+
