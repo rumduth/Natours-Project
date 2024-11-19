@@ -3,10 +3,7 @@ async function handleUpdateData(e) {
   e.preventDefault();
   try {
     const formData = new FormData(e.target);
-    const res = await axios.patch(
-      `http://localhost:3000/api/v1/users/updateMe`,
-      formData
-    );
+    const res = await axios.patch(`/api/v1/users/updateMe`, formData);
     if (res.data.status === "success") {
       setTimeout(() => location.reload(true), 1500);
       showAlert("success", "Settings updated succesfully");
@@ -23,7 +20,7 @@ async function handleUpdatePassword(e) {
     const data = Object.fromEntries(formData.entries());
     const res = await axios({
       method: "PATCH",
-      url: "http://localhost:3000/api/v1/users/updateMyPassword",
+      url: "/api/v1/users/updateMyPassword",
       data,
     });
     if (res.data.status === "success") {

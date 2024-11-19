@@ -7,7 +7,7 @@ const helmet = require("helmet");
 const mongoSatinize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
-
+const compression = require("compression");
 const AppError = require("./utils/appError");
 
 const globalErrorHandler = require("./controllers/errorController");
@@ -66,11 +66,8 @@ app.use(
 );
 
 //2. Routes
-// app.all("*", (req, res, next) => {
-//   console.log("TEST MIDDLEWARE");
-//   console.log(req.headers);
-//   next();
-// });
+
+app.use(compression());
 
 app.use("/", viewRouter);
 app.use("/api/v1/tours", tourRouter);

@@ -6,7 +6,7 @@ async function handleBookingTour(tourID) {
     //   1. Get checkout session from API
     const res = await axios({
       method: "get",
-      url: `http://localhost:3000/api/v1/bookings/checkout-session/${tourID}`,
+      url: `/api/v1/bookings/checkout-session/${tourID}`,
     });
     await stripe.redirectToCheckout({
       sessionId: res.data.session.id,
