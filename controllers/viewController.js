@@ -3,6 +3,7 @@ const Review = require("../models/reviewModel");
 
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const User = require("../models/userModel");
 
 exports.getOverview = catchAsync(async (req, res, next) => {
   //1. Get Tour data from the collection
@@ -41,4 +42,20 @@ exports.setContentSecurityPolicy = (req, res, next) => {
 
 exports.getLoginForm = catchAsync(async (req, res, next) => {
   res.status(200).render("login", { title: "Log into your account" });
+});
+
+exports.getAccount = catchAsync(async (req, res, next) => {
+  res.status(200).render("account", { title: "Account" });
+});
+
+exports.updateUserData = catchAsync(async (req, res, next) => {
+  const { name, email } = req.body;
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user._id,
+    { name, email },
+    { runValidators: true, new: true }
+  );
+  res
+    .status(200)
+    .render("account", { title: "Your account", user: updatedUser });
 });
