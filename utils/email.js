@@ -10,8 +10,15 @@ module.exports = class Email {
   }
   createTransport() {
     if (process.env.NODE_ENV === "production") {
-      //Send Grid
-      return 1;
+      //Send Brevo
+      return nodemailer.createTransport({
+        host: process.env.BREVO_HOST,
+        port: process.env.BREVO_PORT,
+        auth: {
+          user: process.env.BREVO_USERNAME,
+          pass: process.env.BREVO_PASSWORD,
+        },
+      });
     }
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
