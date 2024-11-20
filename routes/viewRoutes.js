@@ -8,7 +8,7 @@ router.use(viewController.setContentSecurityPolicy);
 router.get(
   "/",
   authController.isLoggedIn,
-  bookingController.createBookingCheckout,
+  // bookingController.createBookingCheckout,
   viewController.getOverview
 );
 router.get("/tours/:slug", authController.isLoggedIn, viewController.getTour);
