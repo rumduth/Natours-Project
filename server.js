@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+dotenv.config({ path: `${__dirname}/config.env` });
 
 process.on("unhandledRejection", (err) => {
   console.log(err.name, err.message);
   console.log("UNHANDLER REJECTION! SHUTTING DOWN...");
-  process.exit(1);
 });
 
 process.on("uncaughtException", (err) => {
@@ -13,7 +13,13 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-dotenv.config({ path: `${__dirname}/config.env` });
+process.on("SIGTERM", (err) => {
+  console.log("SIGTERM RECEIVED. Shutting down gracefully");
+  server.close(() => {
+    console.log("Process is terminated!");
+  });
+});
+
 const app = require("./app");
 const DB = process.env.DATABASE;
 mongoose.connect(DB).then((con) => {
