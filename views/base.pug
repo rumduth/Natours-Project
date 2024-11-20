@@ -10,8 +10,8 @@ html
             script(src= "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer)
             script(src= "/js/index.js" defer) 
             title Natours | #{title ? title : tour ? tour.name : "Exciting tours for adventurous people"}
-
-    body(data-alert= `${alert} ? ${alert} : ""`)
+    - const page_alert = alert || ""
+    body(data-alert= page_alert)
         //- Header
         include _header
         //- Content
