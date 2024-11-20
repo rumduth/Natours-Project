@@ -1,8 +1,8 @@
-const showAlert = (type, msg) => {
+const showAlert = (type, msg, time = 5) => {
   hideAlert();
   const markup = `<div class="alert alert--${type}">${msg}</div>`;
   document.querySelector("body").insertAdjacentHTML("afterbegin", markup);
-  window.setTimeout(hideAlert, 5000);
+  window.setTimeout(hideAlert, time * 1000);
 };
 
 const hideAlert = () => {
@@ -36,3 +36,6 @@ const logoutBtn = document.querySelector(".nav__el--logout");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", handleLogout);
 }
+
+const alertMessage = document.querySelector("body").dataset.alert;
+if (alertMessage) showAlert("success", alertMessage, 10);
