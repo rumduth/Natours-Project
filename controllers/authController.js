@@ -12,13 +12,13 @@ function signToken(id) {
   });
 }
 
-function createSendToken(user, statusCode, res) {
+function createSendToken(user, statusCode, res, req) {
   const token = signToken(user._id);
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
-    secure: req.secure || req.headers("x-forwarded-proto") === "https",
+    secure: req.secure || req.headers["x-forwarded-proto"] === "https",
     httpOnly: true,
   };
 
@@ -59,14 +59,14 @@ exports.login = catchAsync(async (req, res, next) => {
   //1. Check if email and password exists
   if (!email || !password)
     return next(new AppError("Please provide email and password!", 400));
-
   //2. Check if user exists and password is correct
   const user = await User.findOne({ email }).select("+password");
 
   if (!user || !(await user.correctPassword(password)))
     return next(new AppError("Incorrect email or password", 401));
   //3. send token to client
-  createSendToken(user, 200, res);
+
+  return createSendToken(user, 200, res, req);
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
