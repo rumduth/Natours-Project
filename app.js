@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const mongoSatinize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const cors = require("cors");
 const compression = require("compression");
 const AppError = require("./utils/appError");
 
@@ -19,6 +20,9 @@ const viewRouter = require("./routes/viewRoutes");
 const app = express();
 
 app.enable("trust proxy");
+app.use(cors());
+app.options("*", cors());
+
 //Setting Pug Engine
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
